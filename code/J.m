@@ -10,7 +10,8 @@ end
 h = X*theta;
 cost = sum((h-y).^2);
 cost =cost/m;
-
-cost = cost+ del*(theta'*theta);
+temp = theta;
+temp(1) = 0;
+cost = cost+ del*(temp'*temp);
 %=====================
 end

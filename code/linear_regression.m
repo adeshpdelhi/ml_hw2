@@ -1,4 +1,4 @@
-function [final_parameters] = linear_regression(X, phi, max_itr, del, alpha)
+function [final_parameters min_cost] = linear_regression(X, phi, max_itr, del, alpha)
 y = X(:,end);
 X = X(:,1:end-1);
 X = [ones(size(X,1),1) X];
@@ -14,7 +14,7 @@ min_cost_his =[];
 % 1: polynomial
 % 2: gaussian
 
-for i = 1:3,
+for i = 1:10,
 	theta = rand(n,1);
 	cost_his = zeros(max_itr,1);
 	cost = J(X,y,theta,del);
@@ -38,7 +38,6 @@ for i = 1:3,
 		if(rem(k,max_itr/10)==0)
 			fprintf('.');
 		end
-		
 	end
 	if(cost<=min_cost)
 		min_cost = cost;
@@ -46,12 +45,7 @@ for i = 1:3,
 		min_cost_his = cost_his;
 	end
 	fprintf('\tJ(test data) = %f\n',cost);
-	% size(min_theta)
-	% fprintf('\n');
 end
- min_cost;
-% min_cost
-% pause(5);
 %================================
 final_parameters = min_theta;
 end
