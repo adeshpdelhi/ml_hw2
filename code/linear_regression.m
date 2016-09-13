@@ -14,7 +14,7 @@ min_cost_his =[];
 % 1: polynomial
 % 2: gaussian
 
-for i = 1:10,
+for i = 1:2,
 	theta = rand(n,1);
 	cost_his = zeros(max_itr,1);
 	cost = J(X,y,theta,del);
