@@ -1,15 +1,12 @@
-function [final_parameters] = linear_regression(X, phi, max_itr, del)
+function [final_parameters] = linear_regression(X, phi, max_itr, del, alpha)
 y = X(:,end);
 X = X(:,1:end-1);
-
+X = [ones(size(X,1),1) X];
 if(phi == 1)
 	X = [X X(:,2).^2 X(:,2).^3 ];
-	disp('poly............');
 end
 n = size(X,2);
 m = size(X,1);
-alpha = 0.001; %sph poly alpha = 0.001 same for linear
-% 
 min_cost = -1;
 min_theta = zeros(n,1);
 min_cost_his =[];
@@ -17,7 +14,7 @@ min_cost_his =[];
 % 1: polynomial
 % 2: gaussian
 
-for i = 1:2,
+for i = 1:3,
 	theta = rand(n,1);
 	cost_his = zeros(max_itr,1);
 	cost = J(X,y,theta,del);
@@ -32,26 +29,27 @@ for i = 1:2,
 			delta = delta + (theta'*xi-y(i))*xi;
 		end;
 		% delta=delta/m;
-		% temp = theta^.2;
-		% temp(1)=0;
-		delta = delta + del.*(theta'*theta);
+		temp = theta;
+		temp(1)=0;
+		delta = delta + del.*(temp'*temp);
 		theta=theta-alpha*delta;
 		cost = J(X,y,theta,del);
 		cost_his(k) = cost;
-		% if(rem(k,10)==0)
-			% cost
-		% end
-		fprintf('.');
+		if(rem(k,max_itr/10)==0)
+			fprintf('.');
+		end
+		
 	end
 	if(cost<=min_cost)
 		min_cost = cost;
 		min_theta = theta;
 		min_cost_his = cost_his;
 	end
+	fprintf('\tJ(test data) = %f\n',cost);
 	% size(min_theta)
-	fprintf('\n');
+	% fprintf('\n');
 end
- min_cost_his
+ min_cost;
 % min_cost
 % pause(5);
 %================================

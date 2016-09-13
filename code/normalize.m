@@ -1,11 +1,12 @@
 function [X, y] = normalize (X, y)
 	n = size(X, 2);
 	m = size(X,1);
-
+	minX = min(X);
+	maxX = max(X);
 	for i = 1:m,
-		X(i,:) = ( max(X) - X(i,:) ) /( max(X) - min(X) );
+		X(i,:) = ( X(i,:) - minX ) ./( maxX - minX );
 	end
 
-	y = ( y - max(y) ) / ( max(y) - min(y) );
+	y = ( y - min(y) ) ./ ( max(y) - min(y) );
 
 end
