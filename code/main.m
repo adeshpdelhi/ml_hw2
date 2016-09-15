@@ -5,7 +5,7 @@ original_dataset = load('lin.txt');
 X = original_dataset(:,1:end-1);
 y = original_dataset (:,end);
 [X,y] = normalize(X,y);
-execute('Lin',X,y,0, 0,true, true, 0.0005,false); %linear regression
+execute('Lin',X,y,0, 0,true, true, 0.005,false); %linear regression
 execute('Lin',X,y,0, 1,true, true, 0.0005,false); %polynomial
 
 execute('Lin', X,y,0.1, 0, true, true, 0.0005,false); % ridge regression .... optimal del= 0.1
